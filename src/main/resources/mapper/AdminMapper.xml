@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyc.music.mapper.AdminMapper">
+
+    <resultMap id="adminResultMap" type="com.xyc.music.entity.Admin">
+        <id property="id" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <select id="validatePassword" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM admin
+        where `name` = #{userName}
+          and password = #{passWord}
+    </select>
+
+
+    <select id="findOne" resultType="com.xyc.music.entity.Admin">
+        SELECT *
+        FROM admin
+        where `name` = #{userName}
+    </select>
+
+
+    <insert id="add" parameterType="com.xyc.music.entity.Admin" useGeneratedKeys="true" keyProperty="id">
+        insert into `admin` (`name`, `password`)
+        values (#{name}, #{password})
+    </insert>
+
+</mapper>
